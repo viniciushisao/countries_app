@@ -1,11 +1,14 @@
 package br.com.hisao.countries.view;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -31,47 +34,44 @@ public class MainActivity extends AppCompatActivity implements CountryDetailFrag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = findViewById(android.R.id.list);
-        Call<List<Country>> allUsers = CountryApplication.create(this).getCountryService().listAll();
 
-        allUsers.enqueue(new Callback<List<Country>>() {
-            @Override
-            public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
+        MainViewModel model = ViewModelProviders.of(this).get(MainViewModel.class);
+        model.getCountries().observe(this, countries -> {
 
-                List<Country> countries = response.body();
-
-                StringBuffer s = new StringBuffer("{");
-
-                for (Country country : countries) {
-
-                    s.append(country.name + ",");
-
-                }
-
-                Log.d("MainActivity:onResponse:56 " + s.toString());
-
-
+            for (Country c : countries) {
+                Log.d("MainActivity:onCreate:73 " + c.name);
             }
 
-            @Override
-            public void onFailure(Call<List<Country>> call, Throwable t) {
-                Log.d("MainActivity:onFailure:43 " + t.getMessage());
-            }
         });
 
         filterText = findViewById(R.id.edtSearch);
         filterText.addTextChangedListener(filterTextWatcher);
         adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
-                new String[]{"brazil", "bermuda"});
+                Country.CountryNameList);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String name = (String) adapterView.getItemAtPosition(i);
+                Log.d("MainActivity:onItemClick:77 " + name);
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(android.R.id.content, CountryDetailFragment.newInstance(null, null));
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteraction() {
 
     }
 
