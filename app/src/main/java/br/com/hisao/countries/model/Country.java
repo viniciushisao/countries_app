@@ -2,6 +2,7 @@ package br.com.hisao.countries.model;
 
 import java.util.List;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.Parcelable.Creator;
@@ -83,6 +84,8 @@ public class Country implements Parcelable {
     @SerializedName("cioc")
     @Expose
     public String cioc;
+
+    public Bitmap bmpFlag;
     public final static Parcelable.Creator<Country> CREATOR = new Creator<Country>() {
 
 

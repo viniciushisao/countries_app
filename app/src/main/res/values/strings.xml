@@ -4,4 +4,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="type_to_filter">Type to filter</string>
+    <string name="name">Name:</string>
+    <string name="native_name">Native Name:</string>
+    <string name="region">Region:</string>
+    <string name="capital">Capital:</string>
+    <string name="languages">Languages:</string>
+    <string name="translations">Translations:</string>
+    <string name="area">Area:</string>
 </resources>

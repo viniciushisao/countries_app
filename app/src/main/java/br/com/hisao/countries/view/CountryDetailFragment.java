@@ -2,29 +2,45 @@ package br.com.hisao.countries.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+
+import com.caverock.androidsvg.SVG;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import br.com.hisao.countries.R;
+import br.com.hisao.countries.model.Country;
+import br.com.hisao.countries.model.Language;
+import br.com.hisao.countries.tools.HttpImageRequestTask;
+import br.com.hisao.countries.tools.Log;
 import br.com.hisao.countries.viewmodel.MainViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CountryDetailFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CountryDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CountryDetailFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String COUNTRY_NAME = "param1";
+    private static final String COUNTRY_NAME = "country_namee";
     private static final String ARG_PARAM2 = "param2";
+    private static final String GERMAN = "(de)";
+
+    private TextView txvName;
+    private TextView txvNativeName;
+    private TextView txvRegion;
+    private TextView txvCapital;
+    private TextView txvArea;
+    private TextView txvLanguagesSpoken;
+    private TextView txvTranslationToDE;
+    private ImageView imgFlag;
+    private ImageView imgLocation;
 
     // TODO: Rename and change types of parameters
     private String countryName;
@@ -41,7 +57,7 @@ public class CountryDetailFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param countryName Parameter 1.
-     * @param param2 Parameter 2.
+     * @param param2      Parameter 2.
      * @return A new instance of fragment CountryDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -56,32 +72,73 @@ public class CountryDetailFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             countryName = getArguments().getString(COUNTRY_NAME);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
-
-
         }
-
-
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_country_detail, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_country_detail, container, false);
+        txvName = view.findViewById(R.id.txvName);
+        txvNativeName = view.findViewById(R.id.txvNativeName);
+        txvRegion = view.findViewById(R.id.txvRegion);
+        txvCapital = view.findViewById(R.id.txvCapital);
+        txvArea = view.findViewById(R.id.txvArea);
+        txvLanguagesSpoken = view.findViewById(R.id.txvLanguages);
+        txvTranslationToDE = view.findViewById(R.id.txvTranslation);
+        imgFlag = view.findViewById(R.id.imvFlag);
+        imgLocation = view.findViewById(R.id.imvMap);
+
+        MainViewModel model = ViewModelProviders.of(this).get(MainViewModel.class);
+        model.getCountry("brazil").observe(this, country -> {
+            showCountryDetails(country);
+            Log.d("CountryDetailFragment:onCreate:71 " + country.name + " capital: " + country.capital);
+
+        });
+
+
+
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction();
+//    private void getImage(){
+//        HttpImageRequestTask httpImageRequestTask = new HttpImageRequestTask();
+//
+//        httpImageRequestTask.execute(imgFlag, null, null);
+//    }
+
+    private void showCountryDetails(Country country) {
+
+
+        txvName.setText(country.name);
+        txvNativeName.setText(country.nativeName);
+        txvRegion.setText(country.region);
+        txvCapital.setText(country.capital);
+        txvArea.setText(String.valueOf(country.area));
+        StringBuffer aux = new StringBuffer("");
+        for (Language language : country.languages) {
+            aux.append(language.name + ", ");
         }
+        txvLanguagesSpoken.setText(aux.delete(aux.length() - 2, aux.length()));
+        aux = new StringBuffer("");
+        aux.append(country.translations.de);
+        aux.append(" " + GERMAN);
+        txvTranslationToDE.setText(country.name);
+        Log.d("CountryDetailFragment:showCountryDetails:117 " + country.flag);
+        imgFlag.setImageBitmap(country.bmpFlag);
+//        Glide.with(this).load(country.flag).into(imgFlag);
+//        getImage();
+
+//        BasicImageDownloader.writeToDisk();
+//        imgFlag;
+//        imgLocation;
+
     }
 
     @Override

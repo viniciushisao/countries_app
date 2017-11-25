@@ -4,8 +4,16 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import com.caverock.androidsvg.SVG;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 import br.com.hisao.countries.CountryApplication;
@@ -25,9 +33,9 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     private void loadCountries() {
-        Call<List<Country>> allUsers = CountryApplication.create(
+        Call<List<Country>> listCall = CountryApplication.create(
                 getApplication().getApplicationContext()).getCountryService().listAll();
-        allUsers.enqueue(new Callback<List<Country>>() {
+        listCall.enqueue(new Callback<List<Country>>() {
             @Override
             public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
                 countries.setValue(response.body());
@@ -35,21 +43,79 @@ public class MainViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<List<Country>> call, Throwable t) {
+                //TODO
+                Log.d("MainActivity:onFailure:43 " + t.getMessage());
+            }
+        });
+    }
+
+    private MutableLiveData<List<Country>> countries;
+    private MutableLiveData<Country> country;
+
+    public LiveData<List<Country>> getCountries() {
+        if (countries == null) {
+            countries = new MutableLiveData<>();
+            loadCountries();
+        }
+        return countries;
+    }
+
+    private void loadCountry(String countryName) {
+        Call<List<Country>> listCall = CountryApplication.create(
+                getApplication().getApplicationContext()).getCountryService().retrieveCountry(countryName);
+        listCall.enqueue(new Callback<List<Country>>() {
+            @Override
+            public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
+                country.setValue(response.body().get(0));
+                loadFlagImage(country.getValue().flag);
+            }
+
+            @Override
+            public void onFailure(Call<List<Country>> call, Throwable t) {
+                //TODO
                 Log.d("MainActivity:onFailure:43 " + t.getMessage());
             }
         });
     }
 
 
-    private MutableLiveData<List<Country>> countries;
-
-    public LiveData<List<Country>> getCountries() {
-        if (countries == null) {
-            countries = new MutableLiveData<>();
-            loadCountries();
-
+    public LiveData<Country> getCountry(String countryName) {
+        if (country == null) {
+            country = new MutableLiveData<>();
+            loadCountry(countryName);
         }
-        return countries;
+        return country;
     }
 
+    private void loadFlagImage(String url){
+         class HttpImageRequestTask extends AsyncTask<String, Void, Bitmap> {
+            @Override
+            protected Bitmap doInBackground(String... params) {
+                try {
+                    final URL url = new URL(params[0]);
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    InputStream inputStream = urlConnection.getInputStream();
+                    SVG image = SVG.getFromInputStream(inputStream);
+                    Bitmap newBM = Bitmap.createBitmap((int) Math.ceil(image.getDocumentWidth()),
+                            (int) Math.ceil(image.getDocumentHeight()),
+                            Bitmap.Config.ARGB_8888);
+                    Canvas bmcanvas = new Canvas(newBM);
+                    bmcanvas.drawRGB(255, 255, 255);
+                    image.renderToCanvas(bmcanvas);
+                    return newBM;
+                } catch (Exception e) {
+                    Log.e("HttpImageRequestTask:doInBackground:45 " + e.getMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                country.getValue().bmpFlag = bitmap;
+                country.postValue(country.getValue());
+            }
+        }
+        HttpImageRequestTask httpImageRequestTask = new HttpImageRequestTask();
+        httpImageRequestTask.execute(url);
+    }
 }

@@ -6,4 +6,143 @@
     android:clickable="true"
     tools:context="br.com.hisao.countries.view.CountryDetailFragment">
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/llImages"
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imvFlag"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
+
+            <ImageView
+                android:id="@+id/imvMap"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txvNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llImages"
+            android:text="@string/name" />
+
+        <TextView
+            android:id="@+id/txvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llImages"
+            android:layout_toEndOf="@id/txvNameLabel"
+            android:text="Brazil" />
+
+        <TextView
+            android:id="@+id/txvNativeNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvName"
+            android:text="@string/native_name" />
+
+        <TextView
+            android:id="@+id/txvNativeName"
+            android:layout_toEndOf="@id/txvNativeNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvName"
+            android:text="Republica Federativa do Brazil" />
+
+        <TextView
+            android:id="@+id/txvRegionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvNativeName"
+            android:text="@string/region" />
+
+        <TextView
+            android:layout_toEndOf="@id/txvRegionLabel"
+            android:id="@+id/txvRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvNativeName"
+            android:text="South America" />
+
+        <TextView
+            android:id="@+id/txvCapitalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvRegion"
+            android:text="@string/capital" />
+
+        <TextView
+            android:layout_toEndOf="@id/txvCapitalLabel"
+            android:id="@+id/txvCapital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvRegion"
+            android:text="Brasilia" />
+
+        <TextView
+            android:id="@+id/txvLanguagesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvCapital"
+            android:text="@string/languages" />
+
+
+        <TextView
+            android:layout_toEndOf="@id/txvLanguagesLabel"
+            android:id="@+id/txvLanguages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvCapital"
+            android:text="Portuguese PT-BR, Tupi Guarani" />
+
+
+        <TextView
+            android:id="@+id/txvTranslationLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvLanguages"
+            android:text="@string/translations" />
+
+
+        <TextView
+            android:id="@+id/txvTranslation"
+            android:layout_toEndOf="@id/txvTranslationLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvLanguages"
+            android:text="Brasil (de)" />
+
+
+        <TextView
+            android:id="@+id/txvAreaLabel"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvTranslation"
+            android:text="@string/area" />
+
+
+        <TextView
+            android:layout_toEndOf="@id/txvAreaLabel"
+            android:id="@+id/txvArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txvTranslation"
+            android:text="97945794" />
+
+    </RelativeLayout>
+
+
 </FrameLayout>
