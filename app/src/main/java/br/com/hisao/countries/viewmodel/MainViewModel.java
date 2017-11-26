@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -14,11 +15,14 @@ import com.caverock.androidsvg.SVG;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 
 import br.com.hisao.countries.CountryApplication;
+import br.com.hisao.countries.data.GoogleMapService;
 import br.com.hisao.countries.model.Country;
 import br.com.hisao.countries.tools.Log;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,6 +72,9 @@ public class MainViewModel extends AndroidViewModel {
             public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
                 country.setValue(response.body().get(0));
                 loadFlagImage(country.getValue().flag);
+                Double lat = country.getValue().latlng.get(0);
+                Double lon = country.getValue().latlng.get(1);
+                loadMapImage(lat, lon);
             }
 
             @Override
@@ -87,8 +94,36 @@ public class MainViewModel extends AndroidViewModel {
         return country;
     }
 
-    private void loadFlagImage(String url){
-         class HttpImageRequestTask extends AsyncTask<String, Void, Bitmap> {
+    private void loadMapImage(Double lat, Double lon) {
+
+        String latlon = lat + "," + lon;
+        Log.d("MainViewModel:loadMapImage:106 " + latlon);
+
+        Call<ResponseBody> listCall = CountryApplication.create(
+                getApplication().getApplicationContext()).getGoogleMapService().
+                retrieveMapImage(GoogleMapService.ZOOM, GoogleMapService.SIZE, GoogleMapService.API_KEY, latlon);
+        listCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.body() != null) {
+                    InputStream is = response.body().byteStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+                    country.getValue().bmpMap = bitmap;
+                    country.postValue(country.getValue());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                //TODO
+                Log.d("MainActivity:onFailure:43 " + t.getMessage());
+            }
+        });
+
+    }
+
+    private void loadFlagImage(String url) {
+        class HttpImageRequestTask extends AsyncTask<String, Void, Bitmap> {
             @Override
             protected Bitmap doInBackground(String... params) {
                 try {
@@ -104,6 +139,7 @@ public class MainViewModel extends AndroidViewModel {
                     image.renderToCanvas(bmcanvas);
                     return newBM;
                 } catch (Exception e) {
+                    //TODO
                     Log.e("HttpImageRequestTask:doInBackground:45 " + e.getMessage());
                 }
                 return null;

@@ -38,10 +38,9 @@ public class MainActivity extends AppCompatActivity implements CountryDetailFrag
             String name = (String) adapterView.getItemAtPosition(i);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(android.R.id.content, CountryDetailFragment.newInstance(null, null));
+            fragmentTransaction.replace(android.R.id.content, CountryDetailFragment.newInstance(name, null));
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-
         });
     }
 

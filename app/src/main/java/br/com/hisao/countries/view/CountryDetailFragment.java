@@ -2,9 +2,6 @@ package br.com.hisao.countries.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,17 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-import com.caverock.androidsvg.SVG;
-
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import br.com.hisao.countries.R;
 import br.com.hisao.countries.model.Country;
 import br.com.hisao.countries.model.Language;
-import br.com.hisao.countries.tools.HttpImageRequestTask;
 import br.com.hisao.countries.tools.Log;
 import br.com.hisao.countries.viewmodel.MainViewModel;
 
@@ -95,27 +84,15 @@ public class CountryDetailFragment extends Fragment {
         imgFlag = view.findViewById(R.id.imvFlag);
         imgLocation = view.findViewById(R.id.imvMap);
 
+        Log.d("CountryDetailFragment:onCreateView:86 " + countryName);
         MainViewModel model = ViewModelProviders.of(this).get(MainViewModel.class);
-        model.getCountry("brazil").observe(this, country -> {
+        model.getCountry(countryName).observe(this, country -> {
             showCountryDetails(country);
-            Log.d("CountryDetailFragment:onCreate:71 " + country.name + " capital: " + country.capital);
-
         });
-
-
-
         return view;
     }
 
-//    private void getImage(){
-//        HttpImageRequestTask httpImageRequestTask = new HttpImageRequestTask();
-//
-//        httpImageRequestTask.execute(imgFlag, null, null);
-//    }
-
     private void showCountryDetails(Country country) {
-
-
         txvName.setText(country.name);
         txvNativeName.setText(country.nativeName);
         txvRegion.setText(country.region);
@@ -130,15 +107,8 @@ public class CountryDetailFragment extends Fragment {
         aux.append(country.translations.de);
         aux.append(" " + GERMAN);
         txvTranslationToDE.setText(country.name);
-        Log.d("CountryDetailFragment:showCountryDetails:117 " + country.flag);
         imgFlag.setImageBitmap(country.bmpFlag);
-//        Glide.with(this).load(country.flag).into(imgFlag);
-//        getImage();
-
-//        BasicImageDownloader.writeToDisk();
-//        imgFlag;
-//        imgLocation;
-
+        imgLocation.setImageBitmap(country.bmpMap);
     }
 
     @Override

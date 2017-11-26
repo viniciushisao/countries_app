@@ -86,6 +86,7 @@ public class Country implements Parcelable {
     public String cioc;
 
     public Bitmap bmpFlag;
+    public Bitmap bmpMap;
     public final static Parcelable.Creator<Country> CREATOR = new Creator<Country>() {
 
 
