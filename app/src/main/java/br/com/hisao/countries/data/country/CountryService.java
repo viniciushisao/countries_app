@@ -1,4 +1,4 @@
-package br.com.hisao.countries.data;
+package br.com.hisao.countries.data.country;
 
 import java.util.List;
 

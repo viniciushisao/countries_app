@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import br.com.hisao.countries.R;
@@ -18,7 +19,6 @@ import br.com.hisao.countries.viewmodel.MainViewModel;
 
 public class CountryDetailFragment extends Fragment {
     private static final String COUNTRY_NAME = "country_namee";
-    private static final String ARG_PARAM2 = "param2";
     private static final String GERMAN = "(de)";
 
     private TextView txvName;
@@ -30,10 +30,10 @@ public class CountryDetailFragment extends Fragment {
     private TextView txvTranslationToDE;
     private ImageView imgFlag;
     private ImageView imgLocation;
+    private RelativeLayout rllLoading;
 
     // TODO: Rename and change types of parameters
     private String countryName;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -46,15 +46,13 @@ public class CountryDetailFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param countryName Parameter 1.
-     * @param param2      Parameter 2.
      * @return A new instance of fragment CountryDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CountryDetailFragment newInstance(String countryName, String param2) {
+    public static CountryDetailFragment newInstance(String countryName) {
         CountryDetailFragment fragment = new CountryDetailFragment();
         Bundle args = new Bundle();
         args.putString(COUNTRY_NAME, countryName);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,7 +62,6 @@ public class CountryDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             countryName = getArguments().getString(COUNTRY_NAME);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
     }
@@ -83,7 +80,9 @@ public class CountryDetailFragment extends Fragment {
         txvTranslationToDE = view.findViewById(R.id.txvTranslation);
         imgFlag = view.findViewById(R.id.imvFlag);
         imgLocation = view.findViewById(R.id.imvMap);
+        rllLoading = view.findViewById(R.id.rllLoading);
 
+        rllLoading.setVisibility(View.VISIBLE);
         Log.d("CountryDetailFragment:onCreateView:86 " + countryName);
         MainViewModel model = ViewModelProviders.of(this).get(MainViewModel.class);
         model.getCountry(countryName).observe(this, country -> {
@@ -109,6 +108,7 @@ public class CountryDetailFragment extends Fragment {
         txvTranslationToDE.setText(country.name);
         imgFlag.setImageBitmap(country.bmpFlag);
         imgLocation.setImageBitmap(country.bmpMap);
+        rllLoading.setVisibility(View.GONE);
     }
 
     @Override

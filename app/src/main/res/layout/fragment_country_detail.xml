@@ -1,15 +1,19 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_red_dark"
+    android:background="@android:color/white"
     android:clickable="true"
+    android:focusable="true"
+    android:padding="10dp"
     tools:context="br.com.hisao.countries.view.CountryDetailFragment">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:clickable="true"
+        android:focusable="true">
 
         <LinearLayout
             android:id="@+id/llImages"
@@ -17,17 +21,41 @@
             android:layout_height="100dip"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imvFlag"
-                android:layout_width="0dp"
+            <RelativeLayout
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.5">
 
-            <ImageView
-                android:id="@+id/imvMap"
-                android:layout_width="0dp"
+                <ProgressBar
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+                <ImageView
+                    android:id="@+id/imvFlag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.5">
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+                <ImageView
+                    android:id="@+id/imvMap"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
         </LinearLayout>
 
 
@@ -36,7 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/llImages"
-            android:text="@string/name" />
+            android:text="@string/name"
+            android:theme="@style/textViewStyle" />
 
         <TextView
             android:id="@+id/txvName"
@@ -44,68 +73,77 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/llImages"
             android:layout_toEndOf="@id/txvNameLabel"
-            android:text="Brazil" />
+            android:text="Brazil"
+            android:theme="@style/textViewStyle" />
 
         <TextView
             android:id="@+id/txvNativeNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvName"
-            android:text="@string/native_name" />
+            android:text="@string/native_name"
+            android:theme="@style/textViewStyle" />
 
         <TextView
             android:id="@+id/txvNativeName"
-            android:layout_toEndOf="@id/txvNativeNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvName"
-            android:text="Republica Federativa do Brazil" />
+            android:layout_toEndOf="@id/txvNativeNameLabel"
+            android:text="Republica Federativa do Brazil"
+            android:theme="@style/textViewStyle" />
 
         <TextView
             android:id="@+id/txvRegionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvNativeName"
-            android:text="@string/region" />
+            android:text="@string/region"
+            android:theme="@style/textViewStyle" />
 
         <TextView
-            android:layout_toEndOf="@id/txvRegionLabel"
             android:id="@+id/txvRegion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvNativeName"
-            android:text="South America" />
+            android:layout_toEndOf="@id/txvRegionLabel"
+            android:text="South America"
+            android:theme="@style/textViewStyle" />
 
         <TextView
             android:id="@+id/txvCapitalLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvRegion"
-            android:text="@string/capital" />
+            android:text="@string/capital"
+            android:theme="@style/textViewStyle" />
 
         <TextView
-            android:layout_toEndOf="@id/txvCapitalLabel"
             android:id="@+id/txvCapital"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvRegion"
-            android:text="Brasilia" />
+            android:layout_toEndOf="@id/txvCapitalLabel"
+            android:text="Brasilia"
+            android:theme="@style/textViewStyle" />
 
         <TextView
             android:id="@+id/txvLanguagesLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvCapital"
-            android:text="@string/languages" />
+            android:text="@string/languages"
+            android:theme="@style/textViewStyle" />
 
 
         <TextView
-            android:layout_toEndOf="@id/txvLanguagesLabel"
             android:id="@+id/txvLanguages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvCapital"
-            android:text="Portuguese PT-BR, Tupi Guarani" />
+            android:layout_toEndOf="@id/txvLanguagesLabel"
+            android:text="Portuguese PT-BR, Tupi Guarani"
+            android:theme="@style/textViewStyle" />
 
 
         <TextView
@@ -113,36 +151,64 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvLanguages"
-            android:text="@string/translations" />
+            android:text="@string/translations"
+            android:theme="@style/textViewStyle" />
 
 
         <TextView
             android:id="@+id/txvTranslation"
-            android:layout_toEndOf="@id/txvTranslationLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvLanguages"
-            android:text="Brasil (de)" />
+            android:layout_toEndOf="@id/txvTranslationLabel"
+            android:text="Brasil (de)"
+            android:theme="@style/textViewStyle" />
 
 
         <TextView
             android:id="@+id/txvAreaLabel"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvTranslation"
-            android:text="@string/area" />
+            android:text="@string/area"
+            android:theme="@style/textViewStyle" />
 
 
         <TextView
-            android:layout_toEndOf="@id/txvAreaLabel"
             android:id="@+id/txvArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txvTranslation"
-            android:text="97945794" />
+            android:layout_toEndOf="@id/txvAreaLabel"
+            android:text="97945794"
+            android:theme="@style/textViewStyle" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rllLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ProgressBar
+            android:id="@+id/pbaMain"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pbaMain"
+            android:layout_centerInParent="true"
+            android:text="@string/loading"
+            android:theme="@style/textViewStyle" />
 
     </RelativeLayout>
 
 
-</FrameLayout>
+</RelativeLayout>

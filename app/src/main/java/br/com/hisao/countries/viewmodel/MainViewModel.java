@@ -15,11 +15,10 @@ import com.caverock.androidsvg.SVG;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 
 import br.com.hisao.countries.CountryApplication;
-import br.com.hisao.countries.data.GoogleMapService;
+import br.com.hisao.countries.data.googleMap.GoogleMapService;
 import br.com.hisao.countries.model.Country;
 import br.com.hisao.countries.tools.Log;
 import okhttp3.ResponseBody;

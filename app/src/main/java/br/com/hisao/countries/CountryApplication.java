@@ -3,10 +3,10 @@ package br.com.hisao.countries;
 import android.app.Application;
 import android.content.Context;
 
-import br.com.hisao.countries.data.CountryFactory;
-import br.com.hisao.countries.data.CountryService;
-import br.com.hisao.countries.data.GoogleMapFactory;
-import br.com.hisao.countries.data.GoogleMapService;
+import br.com.hisao.countries.data.country.CountryFactory;
+import br.com.hisao.countries.data.country.CountryService;
+import br.com.hisao.countries.data.googleMap.GoogleMapFactory;
+import br.com.hisao.countries.data.googleMap.GoogleMapService;
 
 /**
  * Created by vinicius on 23/11/17.

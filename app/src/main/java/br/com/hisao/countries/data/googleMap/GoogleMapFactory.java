@@ -1,4 +1,4 @@
-package br.com.hisao.countries.data;
+package br.com.hisao.countries.data.googleMap;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

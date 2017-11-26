@@ -1,4 +1,4 @@
-package br.com.hisao.countries.data;
+package br.com.hisao.countries.data.googleMap;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

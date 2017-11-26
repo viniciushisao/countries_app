@@ -12,7 +12,6 @@ import android.widget.ListView;
 
 import br.com.hisao.countries.R;
 import br.com.hisao.countries.model.Country;
-import br.com.hisao.countries.tools.Log;
 
 public class MainActivity extends AppCompatActivity implements CountryDetailFragment.OnFragmentInteractionListener {
 
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements CountryDetailFrag
             String name = (String) adapterView.getItemAtPosition(i);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(android.R.id.content, CountryDetailFragment.newInstance(name, null));
+            fragmentTransaction.replace(android.R.id.content, CountryDetailFragment.newInstance(name));
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });
