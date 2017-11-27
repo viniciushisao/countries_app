@@ -96,7 +96,6 @@ public class MainViewModel extends AndroidViewModel {
     private void loadMapImage(Double lat, Double lon) {
 
         String latlon = lat + "," + lon;
-        Log.d("MainViewModel:loadMapImage:106 " + latlon);
 
         Call<ResponseBody> listCall = CountryApplication.create(
                 getApplication().getApplicationContext()).getGoogleMapService().

@@ -105,6 +105,7 @@ public class CountryDetailFragment extends Fragment {
         aux = new StringBuffer("");
         aux.append(country.translations.de);
         aux.append(" " + GERMAN);
+        Log.d("CountryDetailFragment:showCountryDetails:108 " + aux);
         txvTranslationToDE.setText(aux);
         imgFlag.setImageBitmap(country.bmpFlag);
         imgLocation.setImageBitmap(country.bmpMap);
