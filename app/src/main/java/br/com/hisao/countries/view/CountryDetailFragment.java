@@ -18,7 +18,7 @@ import br.com.hisao.countries.tools.Log;
 import br.com.hisao.countries.viewmodel.MainViewModel;
 
 public class CountryDetailFragment extends Fragment {
-    private static final String COUNTRY_NAME = "country_namee";
+    private static final String COUNTRY_NAME = "country_name";
     private static final String GERMAN = "(de)";
 
     private TextView txvName;
@@ -105,7 +105,7 @@ public class CountryDetailFragment extends Fragment {
         aux = new StringBuffer("");
         aux.append(country.translations.de);
         aux.append(" " + GERMAN);
-        txvTranslationToDE.setText(country.name);
+        txvTranslationToDE.setText(aux);
         imgFlag.setImageBitmap(country.bmpFlag);
         imgLocation.setImageBitmap(country.bmpMap);
         rllLoading.setVisibility(View.GONE);
@@ -128,16 +128,6 @@ public class CountryDetailFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction();
