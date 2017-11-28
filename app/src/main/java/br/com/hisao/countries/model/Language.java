@@ -7,12 +7,11 @@ package br.com.hisao.countries.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Language implements Parcelable
-{
+public class Language implements Parcelable {
 
     @SerializedName("iso639_1")
     @Expose
@@ -40,8 +39,7 @@ public class Language implements Parcelable
             return (new Language[size]);
         }
 
-    }
-            ;
+    };
 
     protected Language(Parcel in) {
         this.iso6391 = ((String) in.readValue((String.class.getClassLoader())));

@@ -5,15 +5,13 @@ package br.com.hisao.countries.model;
  */
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
 
-        import android.os.Parcel;
-        import android.os.Parcelable;
-        import android.os.Parcelable.Creator;
-        import com.google.gson.annotations.Expose;
-        import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class Currency implements Parcelable
-{
+public class Currency implements Parcelable {
 
     @SerializedName("code")
     @Expose
@@ -38,8 +36,7 @@ public class Currency implements Parcelable
             return (new Currency[size]);
         }
 
-    }
-            ;
+    };
 
     protected Currency(Parcel in) {
         this.code = ((String) in.readValue((String.class.getClassLoader())));

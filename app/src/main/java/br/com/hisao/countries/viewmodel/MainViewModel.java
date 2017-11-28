@@ -20,6 +20,7 @@ import java.util.List;
 import br.com.hisao.countries.CountryApplication;
 import br.com.hisao.countries.data.googleMap.GoogleMapService;
 import br.com.hisao.countries.model.Country;
+import br.com.hisao.countries.model.ErrorHandle;
 import br.com.hisao.countries.tools.Log;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -35,33 +36,9 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
     }
 
-    private void loadCountries() {
-        Call<List<Country>> listCall = CountryApplication.create(
-                getApplication().getApplicationContext()).getCountryService().listAll();
-        listCall.enqueue(new Callback<List<Country>>() {
-            @Override
-            public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
-                countries.setValue(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<Country>> call, Throwable t) {
-                //TODO
-                Log.d("MainActivity:onFailure:43 " + t.getMessage());
-            }
-        });
-    }
-
     private MutableLiveData<List<Country>> countries;
     private MutableLiveData<Country> country;
 
-    public LiveData<List<Country>> getCountries() {
-        if (countries == null) {
-            countries = new MutableLiveData<>();
-            loadCountries();
-        }
-        return countries;
-    }
 
     private void loadCountry(String countryName) {
         Call<List<Country>> listCall = CountryApplication.create(
@@ -78,8 +55,9 @@ public class MainViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<List<Country>> call, Throwable t) {
-                //TODO
-                Log.d("MainActivity:onFailure:43 " + t.getMessage());
+                ErrorHandle errorHandle = new ErrorHandle();
+                errorHandle.errorMessage = t.getMessage();
+                country.setValue(errorHandle);
             }
         });
     }

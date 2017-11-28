@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import br.com.hisao.countries.R;
 import br.com.hisao.countries.model.Country;
+import br.com.hisao.countries.model.ErrorHandle;
 import br.com.hisao.countries.model.Language;
 import br.com.hisao.countries.tools.Log;
 import br.com.hisao.countries.viewmodel.MainViewModel;
@@ -31,6 +32,8 @@ public class CountryDetailFragment extends Fragment {
     private ImageView imgFlag;
     private ImageView imgLocation;
     private RelativeLayout rllLoading;
+    private RelativeLayout rllError;
+    private TextView txvErrorMessage;
 
     // TODO: Rename and change types of parameters
     private String countryName;
@@ -41,14 +44,6 @@ public class CountryDetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param countryName Parameter 1.
-     * @return A new instance of fragment CountryDetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static CountryDetailFragment newInstance(String countryName) {
         CountryDetailFragment fragment = new CountryDetailFragment();
         Bundle args = new Bundle();
@@ -81,17 +76,51 @@ public class CountryDetailFragment extends Fragment {
         imgFlag = view.findViewById(R.id.imvFlag);
         imgLocation = view.findViewById(R.id.imvMap);
         rllLoading = view.findViewById(R.id.rllLoading);
-
-        rllLoading.setVisibility(View.VISIBLE);
-        Log.d("CountryDetailFragment:onCreateView:86 " + countryName);
+        rllError = view.findViewById(R.id.rllError);
+        txvErrorMessage = view.findViewById(R.id.txvErrorMessage);
+        showLoadingPage();
         MainViewModel model = ViewModelProviders.of(this).get(MainViewModel.class);
         model.getCountry(countryName).observe(this, country -> {
-            showCountryDetails(country);
+            Log.d("CountryDetailFragment:onCreateView:81 ");
+            if (country != null) {
+                if (country instanceof ErrorHandle) {
+                    ErrorHandle errorHandle = (ErrorHandle) country;
+                    showErrorPage(errorHandle.errorMessage);
+                } else {
+                    showCountryDetails(country);
+                }
+
+            }
         });
         return view;
     }
 
+    private void showLoadingPage() {
+        hideErrorPage();
+        rllLoading.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoadingPage() {
+        rllLoading.setVisibility(View.GONE);
+    }
+
+    private void showErrorPage(String errorMessage) {
+
+        hideLoadingPage();
+
+        txvErrorMessage.setText(errorMessage);
+        rllError.setVisibility(View.VISIBLE);
+    }
+
+    private void hideErrorPage() {
+        rllError.setVisibility(View.GONE);
+    }
+
     private void showCountryDetails(Country country) {
+
+        hideLoadingPage();
+        hideErrorPage();
+
         txvName.setText(country.name);
         txvNativeName.setText(country.nativeName);
         txvRegion.setText(country.region);
@@ -105,11 +134,10 @@ public class CountryDetailFragment extends Fragment {
         aux = new StringBuffer("");
         aux.append(country.translations.de);
         aux.append(" " + GERMAN);
-        Log.d("CountryDetailFragment:showCountryDetails:108 " + aux);
         txvTranslationToDE.setText(aux);
         imgFlag.setImageBitmap(country.bmpFlag);
         imgLocation.setImageBitmap(country.bmpMap);
-        rllLoading.setVisibility(View.GONE);
+        hideLoadingPage();
     }
 
     @Override

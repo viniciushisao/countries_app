@@ -5,15 +5,15 @@ package br.com.hisao.countries.model;
  */
 
 
-import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RegionalBloc implements Parcelable
-{
+import java.util.List;
+
+public class RegionalBloc implements Parcelable {
 
     @SerializedName("acronym")
     @Expose
@@ -41,8 +41,7 @@ public class RegionalBloc implements Parcelable
             return (new RegionalBloc[size]);
         }
 
-    }
-            ;
+    };
 
     protected RegionalBloc(Parcel in) {
         this.acronym = ((String) in.readValue((String.class.getClassLoader())));

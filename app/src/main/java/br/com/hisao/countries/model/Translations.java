@@ -7,12 +7,11 @@ package br.com.hisao.countries.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Translations implements Parcelable
-{
+public class Translations implements Parcelable {
 
     @SerializedName("de")
     @Expose
@@ -58,8 +57,7 @@ public class Translations implements Parcelable
             return (new Translations[size]);
         }
 
-    }
-            ;
+    };
 
     protected Translations(Parcel in) {
         this.de = ((String) in.readValue((String.class.getClassLoader())));

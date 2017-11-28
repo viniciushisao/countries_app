@@ -30,11 +30,11 @@ public class CountryApplication extends Application {
         return googleMapService;
     }
 
-    private static CountryApplication get(Context context){
+    private static CountryApplication get(Context context) {
         return (CountryApplication) context.getApplicationContext();
     }
 
-    public static CountryApplication create(Context context){
+    public static CountryApplication create(Context context) {
         return CountryApplication.get(context);
     }
 }

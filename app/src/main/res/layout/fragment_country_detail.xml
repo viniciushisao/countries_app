@@ -73,7 +73,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/llImages"
             android:layout_toEndOf="@id/txvNameLabel"
-            android:text="Brazil"
             android:theme="@style/textViewStyle" />
 
         <TextView
@@ -90,7 +89,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txvName"
             android:layout_toEndOf="@id/txvNativeNameLabel"
-            android:text="Republica Federativa do Brazil"
             android:theme="@style/textViewStyle" />
 
         <TextView
@@ -107,7 +105,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txvNativeName"
             android:layout_toEndOf="@id/txvRegionLabel"
-            android:text="South America"
             android:theme="@style/textViewStyle" />
 
         <TextView
@@ -124,7 +121,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txvRegion"
             android:layout_toEndOf="@id/txvCapitalLabel"
-            android:text="Brasilia"
             android:theme="@style/textViewStyle" />
 
         <TextView
@@ -142,7 +138,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txvCapital"
             android:layout_toEndOf="@id/txvLanguagesLabel"
-            android:text="Portuguese PT-BR, Tupi Guarani"
             android:theme="@style/textViewStyle" />
 
 
@@ -161,7 +156,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txvLanguages"
             android:layout_toEndOf="@id/txvTranslationLabel"
-            android:text="Brasil (de)"
             android:theme="@style/textViewStyle" />
 
 
@@ -180,7 +174,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txvTranslation"
             android:layout_toEndOf="@id/txvAreaLabel"
-            android:text="97945794"
             android:theme="@style/textViewStyle" />
 
     </RelativeLayout>
@@ -210,5 +203,40 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rllError"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:clickable="true"
+        android:focusable="true">
+
+
+        <ImageView
+            android:id="@+id/imvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@android:drawable/ic_delete" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/imvError"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/something_wrong_happend"
+            android:theme="@style/textViewStyle" />
+
+        <TextView
+            android:id="@+id/txvErrorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imvError"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:theme="@style/textViewStyle" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
