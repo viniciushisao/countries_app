@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.hisao.countries.view.MainActivity">
+    android:orientation="vertical"
+    android:padding="@dimen/container_padding">
 
+    <EditText
+        android:id="@+id/edtSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/type_to_filter"
+        android:inputType="text"
+        android:maxLines="1" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:layout_height="0dip"
+        android:layout_weight="1" />
 
-        <EditText
-            android:id="@+id/edtSearch"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/type_to_filter"
-            android:inputType="text"
-            android:maxLines="1" />
+</LinearLayout>
 
-        <ListView
-            android:id="@android:id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>

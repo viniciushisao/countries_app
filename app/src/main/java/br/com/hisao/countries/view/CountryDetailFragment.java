@@ -35,7 +35,6 @@ public class CountryDetailFragment extends Fragment {
     private RelativeLayout rllError;
     private TextView txvErrorMessage;
 
-    // TODO: Rename and change types of parameters
     private String countryName;
 
     private OnFragmentInteractionListener mListener;

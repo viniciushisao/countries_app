@@ -5,7 +5,7 @@
     android:background="@android:color/white"
     android:clickable="true"
     android:focusable="true"
-    android:padding="10dp"
+    android:padding="@dimen/container_padding"
     tools:context="br.com.hisao.countries.view.CountryDetailFragment">
 
     <RelativeLayout
@@ -19,12 +19,14 @@
             android:id="@+id/llImages"
             android:layout_width="match_parent"
             android:layout_height="100dip"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5">
+                android:layout_weight="0.5"
+                android:padding="@dimen/container_padding">
 
                 <ProgressBar
                     style="?android:attr/progressBarStyleSmall"
@@ -35,14 +37,16 @@
                 <ImageView
                     android:id="@+id/imvFlag"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5">
+                android:layout_weight="0.5"
+                android:padding="@dimen/container_padding">
 
                 <ProgressBar
                     style="?android:attr/progressBarStyleSmall"
@@ -53,128 +57,144 @@
                 <ImageView
                     android:id="@+id/imvMap"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
             </RelativeLayout>
 
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/txvNameLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_below="@id/llImages"
-            android:text="@string/name"
-            android:theme="@style/textViewStyle" />
+            android:background="@android:color/white"
+            android:padding="@dimen/container_padding">
 
-        <TextView
-            android:id="@+id/txvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/llImages"
-            android:layout_toEndOf="@id/txvNameLabel"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvNameLabel"
 
-        <TextView
-            android:id="@+id/txvNativeNameLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvName"
-            android:text="@string/native_name"
-            android:theme="@style/textViewStyle" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_inner_lines"
+                android:text="@string/name"
+                android:theme="@style/textViewStyle" />
 
-        <TextView
-            android:id="@+id/txvNativeName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvName"
-            android:layout_toEndOf="@id/txvNativeNameLabel"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/txvNameLabel"
+                android:theme="@style/textViewStyle" />
 
-        <TextView
-            android:id="@+id/txvRegionLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvNativeName"
-            android:text="@string/region"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvNativeNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvName"
+                android:layout_marginBottom="@dimen/margin_inner_lines"
+                android:text="@string/native_name"
+                android:theme="@style/textViewStyle" />
 
-        <TextView
-            android:id="@+id/txvRegion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvNativeName"
-            android:layout_toEndOf="@id/txvRegionLabel"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvNativeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvName"
+                android:layout_toEndOf="@id/txvNativeNameLabel"
+                android:theme="@style/textViewStyle" />
 
-        <TextView
-            android:id="@+id/txvCapitalLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvRegion"
-            android:text="@string/capital"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvRegionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvNativeName"
+                android:layout_marginBottom="@dimen/margin_inner_lines"
+                android:text="@string/region"
+                android:theme="@style/textViewStyle" />
 
-        <TextView
-            android:id="@+id/txvCapital"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvRegion"
-            android:layout_toEndOf="@id/txvCapitalLabel"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvRegion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvNativeName"
+                android:layout_toEndOf="@id/txvRegionLabel"
+                android:theme="@style/textViewStyle" />
 
-        <TextView
-            android:id="@+id/txvLanguagesLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvCapital"
-            android:text="@string/languages"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvCapitalLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvRegion"
+                android:layout_marginBottom="@dimen/margin_inner_lines"
 
+                android:text="@string/capital"
+                android:theme="@style/textViewStyle" />
 
-        <TextView
-            android:id="@+id/txvLanguages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvCapital"
-            android:layout_toEndOf="@id/txvLanguagesLabel"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvCapital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvRegion"
+                android:layout_toEndOf="@id/txvCapitalLabel"
+                android:theme="@style/textViewStyle" />
 
-
-        <TextView
-            android:id="@+id/txvTranslationLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvLanguages"
-            android:text="@string/translations"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvLanguagesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvCapital"
+                android:layout_marginBottom="@dimen/margin_inner_lines"
+                android:text="@string/languages"
+                android:theme="@style/textViewStyle" />
 
 
-        <TextView
-            android:id="@+id/txvTranslation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvLanguages"
-            android:layout_toEndOf="@id/txvTranslationLabel"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvLanguages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvCapital"
+                android:layout_toEndOf="@id/txvLanguagesLabel"
+                android:theme="@style/textViewStyle" />
 
 
-        <TextView
-            android:id="@+id/txvAreaLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvTranslation"
-            android:text="@string/area"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvTranslationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvLanguages"
+                android:layout_marginBottom="@dimen/margin_inner_lines"
+                android:text="@string/translations"
+                android:theme="@style/textViewStyle" />
 
 
-        <TextView
-            android:id="@+id/txvArea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txvTranslation"
-            android:layout_toEndOf="@id/txvAreaLabel"
-            android:theme="@style/textViewStyle" />
+            <TextView
+                android:id="@+id/txvTranslation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvLanguages"
+                android:layout_toEndOf="@id/txvTranslationLabel"
+                android:theme="@style/textViewStyle" />
+
+
+            <TextView
+                android:id="@+id/txvAreaLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvTranslation"
+                android:text="@string/area"
+                android:theme="@style/textViewStyle" />
+
+
+            <TextView
+                android:id="@+id/txvArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txvTranslation"
+                android:layout_toEndOf="@id/txvAreaLabel"
+                android:theme="@style/textViewStyle" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
